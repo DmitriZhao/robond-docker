@@ -8,28 +8,27 @@ RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main multivers
     sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
     curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add - && \
     apt-get update && apt-get install -y ros-melodic-desktop-full ros-melodic-perception python-rosdep \
-		ros-melodic-openslam-gmapping ros-melodic-joy ros-melodic-yujin-ocs ros-melodic-ecl-streams ros-melodic-yocs-controllers ros-melodic-depthimage-to-laserscan ros-melodic-kobuki* \
-        wget git nano screen screenfetch htop xterm
+		ros-melodic-openslam-gmapping ros-melodic-joy ros-melodic-ecl-streams ros-melodic-depthimage-to-laserscan ros-melodic-webots-ros\
+        wget git nano screen screenfetch htop xterm proxychains
 RUN rosdep init && rosdep update
 
-# Update Gazebo
-RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
-    wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add - && \
-    apt-get update && apt-get install -y gazebo9 libgazebo9-dev
+# Install Webots
+RUN wget -qO- https://cyberbotics.com/Cyberbotics.asc | sudo apt-key add - && \
+    apt-add-repository 'deb https://cyberbotics.com/debian/ binary-amd64/' && \
+    apt-get update && apt-get install -y webots
 
 # Set up the workspace
-RUN /bin/bash -c "echo 'export HOME=/home/ubuntu' >> /root/.bashrc && source /root/.bashrc" && \
-    mkdir -p ~/ros_ws/src && \
-    mkdir -p ~/.gazebo/models && cd ~/.gazebo/models && wget https://bitbucket.org/osrf/gazebo_models/get/e6d645674e8a.zip && unzip e6d645674e8a.zip && mv osrf-gazebo_models-e6d645674e8a/* . && rm e6d645674e8a.zip && rm -r osrf-gazebo_models-e6d645674e8a \
+RUN useradd --create-home --no-log-init --shell /bin/bash ubuntu && adduser ubuntu sudo && echo 'ubuntu:ubuntu' | chpasswd && chown -hR ubuntu:ubuntu /home/ubuntu/
+USER ubuntu
+RUN  mkdir -p ~/ros_ws/src && \
     /bin/bash -c "source /opt/ros/melodic/setup.bash && \
                   cd ~/ros_ws/ && \
                   catkin_make && \
-                  echo 'export GAZEBO_MODEL_PATH=~/.gazebo/models' >> ~/.bashrc && \
-                  echo 'source ~/ros_ws/devel/setup.bash' >> ~/.bashrc"
-
-# Updating ROSDEP and installing dependencies
-RUN cd ~/ros_ws && rosdep update && rosdep install --from-paths src --ignore-src --rosdistro=melodic -y && \
+                  echo 'source ~/ros_ws/devel/setup.bash' >> ~/.bashrc && \
+                  echo 'export WEBOTS_HOME=/usr/local/webots' >> ~/.bashrc && \
+                  echo 'export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$WEBOTS_HOME/lib/controller' >> ~/.bashrc" && \
+    cd ~/ros_ws && rosdep fix-permissions && rosdep update && rosdep install --from-paths src --ignore-src --rosdistro=melodic -y && \
     /bin/bash -c "source /opt/ros/melodic/setup.bash && \
                   cd ~/ros_ws/ && rm -rf build devel && \
-                  catkin_make" && \
-    /bin/bash -c "echo 'source ~/ros_ws/devel/setup.bash' >> /root/.bashrc"
+                  catkin_make"
+USER root
