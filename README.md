@@ -1,7 +1,29 @@
-[![Docker Stars](https://img.shields.io/docker/stars/bpinaya/robond-docker.svg)](https://hub.docker.com/r/bpinaya/robond-docker/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/bpinaya/robond-docker.svg)](https://hub.docker.com/r/bpinaya/robond-docker/)
+# Docker image for ROS SLAM simulation and development
 
-# Udacity RoboND Docker container
+This Docker image allows you to run {ROS, webots}-based SLAM simulation through VNC or browser from any OS:
+  - Linux (Tested in Manjaro 19.0.2)
+  - Windows (To be tested)
+  - MacOS (To be tested)
+
+## Build
+
+```bash
+make build
+```
+
+## Run
+
+```bash
+docker run -it --rm -p 6080:80 -p 5900:5900 dmitrizhao/ubuntu-vnc-ros-webots:melodic bash
+```
+
+## Acknowledgement
+
+This image is based on [robond-docker](https://github.com/bpinaya/robond-docker), kudos to him!
+
+## Original README:
+
+---
 
 [//]: # (Image References)	
 
@@ -12,10 +34,6 @@
 [image4]: ./img/redme4.png "4"
 [imagewin]: ./img/imagewin.PNG "imagewin"
 ![alt text][image0]
-This is a Docker Container for Udacity's Robotics Nanodegree, it'll allow you to run Assigment 2 on your browser from any OS:
-  - Linux (Tested in Ubuntu 14.04)
-  - Windows (To be tested)
-  - MacOS (To be tested)
 
 This container was born out of need, since I need 14.04 in my computer but needed ROS Kinetic for this assigment, and VMware just doesn't do it for me. Feel free to submit PR and file bugs if you encounter them.
 ## Set up
