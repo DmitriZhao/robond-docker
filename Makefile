@@ -16,8 +16,8 @@ define docker_build
 endef
 
 build:
-	# $(call docker_build,dmitrizhao,ubuntu-vnc-desktop-base,bionic)
-	#$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-wrapper,bionic)
+	$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-base,bionic)
+	$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-wrapper,bionic)
 	$(call docker_build,dmitrizhao,ubuntu-vnc-ros-perception,melodic)
 	$(call docker_build,dmitrizhao,ubuntu-vnc-ros-webots,melodic)
 
