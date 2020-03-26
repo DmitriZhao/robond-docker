@@ -9,23 +9,26 @@ help:
 	@echo "   3. make clean            - remove all images"
 	@echo ""
 
+define docker_build
+	docker build --tag=$(1)/$(2):$(3) \
+		--build-arg http_proxy="${http_proxy}" --build-arg https_proxy="${http_proxy}" \
+		$(2)/.
+endef
+
 build:
-	@docker build --tag=dmitrizhao/ubuntu-vnc-desktop-base:bionic \
-		--build-arg http_proxy="${http_proxy}" --build-arg https_proxy="${http_proxy}" \
-		ubuntu-vnc-desktop-base/.
-	@docker build --tag=dmitrizhao/ubuntu-vnc-ros-perception-desktop:melodic \
-		--build-arg http_proxy="${http_proxy}" --build-arg https_proxy="${http_proxy}" \
-		ubuntu-vnc-ros-perception-desktop/.
-	@docker build --tag=dmitrizhao/ubuntu-vnc-ros-webots:melodic \
-		--build-arg http_proxy="${http_proxy}" --build-arg https_proxy="${http_proxy}" \
-		ubuntu-vnc-ros-webots/.
+	# $(call docker_build,dmitrizhao,ubuntu-vnc-desktop-base,bionic)
+	#$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-wrapper,bionic)
+	$(call docker_build,dmitrizhao,ubuntu-vnc-ros-perception,melodic)
+	$(call docker_build,dmitrizhao,ubuntu-vnc-ros-webots,melodic)
 
 pull:
 	@docker pull dmitrizhao/ubuntu-vnc-desktop-base:bionic
-	@docker pull dmitrizhao/ubuntu-vnc-ros-perception-desktop:melodic
+	@docker pull dmitrizhao/ubuntu-vnc-desktop-wrapper:bionic
+	@docker pull dmitrizhao/ubuntu-vnc-ros-perception:melodic
 	@docker pull dmitrizhao/ubuntu-vnc-ros-webots:melodic
 
 clean:
 	@docker rmi -f dmitrizhao/ubuntu-vnc-desktop-base:bionic
-	@docker rmi -f dmitrizhao/ubuntu-vnc-ros-perception-desktop:melodic
+	@docker rmi -f dmitrizhao/ubuntu-vnc-desktop-wrapper:bionic
+	@docker rmi -f dmitrizhao/ubuntu-vnc-ros-perception:melodic
 	@docker rmi -f dmitrizhao/ubuntu-vnc-ros-webots:melodic
