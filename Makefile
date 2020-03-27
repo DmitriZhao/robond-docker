@@ -16,19 +16,19 @@ define docker_build
 endef
 
 build:
-	$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-base,bionic)
-	$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-wrapper,bionic)
-	$(call docker_build,dmitrizhao,ubuntu-vnc-ros-perception,melodic)
+#	$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-base,bionic)
+#	$(call docker_build,dmitrizhao,ubuntu-vnc-desktop-wrapper,bionic)
+	$(call docker_build,dmitrizhao,ubuntu-vnc-webots,melodic)
 	$(call docker_build,dmitrizhao,ubuntu-vnc-ros-webots,melodic)
 
 pull:
 	@docker pull dmitrizhao/ubuntu-vnc-desktop-base:bionic
 	@docker pull dmitrizhao/ubuntu-vnc-desktop-wrapper:bionic
-	@docker pull dmitrizhao/ubuntu-vnc-ros-perception:melodic
+	@docker pull dmitrizhao/ubuntu-vnc-webots:melodic
 	@docker pull dmitrizhao/ubuntu-vnc-ros-webots:melodic
 
 clean:
 	@docker rmi -f dmitrizhao/ubuntu-vnc-desktop-base:bionic
 	@docker rmi -f dmitrizhao/ubuntu-vnc-desktop-wrapper:bionic
-	@docker rmi -f dmitrizhao/ubuntu-vnc-ros-perception:melodic
+	@docker rmi -f dmitrizhao/ubuntu-vnc-webots:melodic
 	@docker rmi -f dmitrizhao/ubuntu-vnc-ros-webots:melodic

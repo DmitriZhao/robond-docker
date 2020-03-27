@@ -14,7 +14,15 @@ make build
 ## Run
 
 ```bash
-docker run -it --rm -p 6080:80 -p 5900:5900 dmitrizhao/ubuntu-vnc-ros-webots:melodic bash
+docker run -it --rm -p 6080:80 -p 5900:5900 --gpus all dmitrizhao/ubuntu-vnc-ros-webots:melodic bash
+```
+
+## Test
+
+Connect to the VNC Desktop, open a LXTerminal, execute:
+
+```bash
+roslaunch webots_ros pioneer3at.launch
 ```
 
 ## Acknowledgement
