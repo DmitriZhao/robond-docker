@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y ros-melodic-desktop-full python-rosdep 
         ros-melodic-openslam-gmapping ros-melodic-joy ros-melodic-ecl-streams ros-melodic-depthimage-to-laserscan \
         ros-melodic-tf2-web-republisher ros-melodic-move-base-flex ros-melodic-eband-local-planner ros-melodic-sbpl-recovery ros-melodic-sbpl-lattice-planner \
 		wget git nano screen screenfetch htop iftop iotop xterm proxychains iputils-ping unzip
-RUN rosdep init && rosdep update
+RUN export http_proxy=http://192.168.1.1:1282 && export https_proxy=http://192.168.1.1:1282 && HTTP_PROXY=http://192.168.1.1:1282 && export HTTPS_PROXY=http://192.168.1.1:1282 && rosdep init && rosdep update
 
 # Update Gazebo
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
