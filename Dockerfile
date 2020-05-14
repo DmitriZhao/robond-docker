@@ -3,8 +3,9 @@ FROM docker.lzzhao.app:4567/lzzhao/docker-ubuntu-vnc-desktop/bionic-lxqt
 LABEL maintainer "lzzhao@tongji.edu.cn"
 
 # Adding keys for ROS
-RUN apt-get update && apt-get install -y dirmngr && \ 
-    sh -c 'echo "deb https://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ bionic main" > /etc/apt/sources.list.d/ros-latest.list' && \
+RUN sed -i "s/mirrors.aliyun.com/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list && \
+    apt-get update && apt-get install -y dirmngr && \ 
+    sh -c 'echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ bionic main" > /etc/apt/sources.list.d/ros-latest.list' && \
     apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 # Installing ROS
