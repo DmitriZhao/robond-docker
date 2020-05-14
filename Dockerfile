@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y dirmngr \
 RUN apt-get update && apt-get install -y ros-melodic-desktop-full python-rosdep \
         ros-melodic-openslam-gmapping ros-melodic-joy ros-melodic-ecl-streams ros-melodic-depthimage-to-laserscan \
         ros-melodic-tf2-web-republisher ros-melodic-move-base-flex ros-melodic-eband-local-planner ros-melodic-sbpl-recovery ros-melodic-sbpl-lattice-planner \
-		wget git nano screen screenfetch htop iftop iotop xterm proxychains ip iputils-ping
+		wget git nano screen screenfetch htop iftop iotop xterm proxychains iputils-ping
 RUN rosdep init && rosdep update
 
 # Update Gazebo
