@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y dirmngr && \
     apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 # Installing ROS
-RUN apt-get update && apt-get install -y ros-melodic-desktop-full python-rosdep \
+RUN apt-get update && apt-get install -y ros-melodic-desktop-full python-rosdep python-wstool ros-melodic-ros \
         ros-melodic-openslam-gmapping ros-melodic-joy ros-melodic-ecl-streams ros-melodic-depthimage-to-laserscan \
         ros-melodic-tf2-web-republisher ros-melodic-move-base-flex ros-melodic-eband-local-planner ros-melodic-sbpl-recovery ros-melodic-sbpl-lattice-planner \
 		wget git nano screen screenfetch htop iftop iotop xterm proxychains iputils-ping unzip
