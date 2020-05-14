@@ -1,6 +1,6 @@
-# Kudos to DOROWU for his amazing VNC 16.04 KDE image
-FROM dorowu/ubuntu-desktop-lxde-vnc:bionic-lxqt
-LABEL maintainer "bpinaya@wpi.edu"
+# Using our own fork
+FROM docker.lzzhao.app:4567/lzzhao/docker-ubuntu-vnc-desktop/bionic-lxqt
+LABEL maintainer "lzzhao@tongji.edu.cn"
 
 # Adding keys for ROS
 RUN apt-get update && apt-get install -y dirmngr \ 
