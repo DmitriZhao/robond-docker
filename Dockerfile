@@ -28,9 +28,5 @@ RUN /bin/bash -c "echo 'export HOME=/home/ubuntu' >> /root/.bashrc && source /ro
                   cd ~/ros_ws/ && \
                   catkin_make && \
                   echo 'export GAZEBO_MODEL_PATH=~/.gazebo/models' >> ~/.bashrc && \
+                  echo 'source /opt/ros/melodic/setup.bash' >> ~/.bashrc && \
                   echo 'source ~/ros_ws/devel/setup.bash' >> ~/.bashrc"
-
-# Sourcing
-RUN /bin/bash -c "source /opt/ros/melodic/setup.bash && \
-                  cd ~/ros_ws/ && rm -rf build devel && \
-                  catkin_make"
