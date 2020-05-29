@@ -23,7 +23,7 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 # Set up the workspace
 RUN /bin/bash -c "echo 'export HOME=/home/ubuntu' >> /root/.bashrc && source /root/.bashrc" && \
     mkdir -p ~/ros_ws/src && \
-    mkdir -p ~/.gazebo/models && cd ~/.gazebo/models && wget https://bitbucket.org/osrf/gazebo_models/get/e6d645674e8a.zip && unzip e6d645674e8a.zip && mv osrf-gazebo_models-e6d645674e8a/* . && rm e6d645674e8a.zip && rm -r osrf-gazebo_models-e6d645674e8a && \
+    mkdir -p ~/.gazebo/models && cd ~/.gazebo/models && wget https://bitbucket.org/osrf/gazebo_models/get/cda67a315660.zip && unzip cda67a315660.zip && mv osrf-gazebo_models-cda67a315660/* . && rm cda67a315660.zip && rm -r osrf-gazebo_models-cda67a315660 && \
     /bin/bash -c "source /opt/ros/melodic/setup.bash && \
                   cd ~/ros_ws/ && \
                   catkin_make && \
